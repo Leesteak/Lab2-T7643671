@@ -12,8 +12,7 @@ package Design6;
  * @author Dr Timothy C. Lethbridge
  * @version July 2000
  */
-public interface PointCPInterface
-{
+public interface PointCP{
   
   //Instance methods **************************************************
  
@@ -34,7 +33,7 @@ public interface PointCPInterface
    * @param pointB The second point.
    * @return The distance between the two points.
    */
-  public double getDistance(PointCPInterface pointB);
+  public double getDistance(PointCP pointB);
 
   /**
    * Rotates the specified point by the specified number of degrees.
@@ -44,7 +43,7 @@ public interface PointCPInterface
    * @param rotation The number of degrees to rotate the point.
    * @return The rotated image of the original point.
    */
-  public PointCPInterface rotatePoint(double rotation);
+  public PointCP rotatePoint(double rotation);
 
   /**
    * Returns information about the coordinates.
