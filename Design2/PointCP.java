@@ -2,7 +2,6 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 package Design2;
-import PointCPInterface.PointCPInterface;
 
 /**
  * This class contains instances of coordinates in either polar or
@@ -14,7 +13,7 @@ import PointCPInterface.PointCPInterface;
  * @author Dr Timothy C. Lethbridge
  * @version July 2000
  */
-public class PointCP implements PointCPInterface
+public class PointCP
 {
   //Instance variables ************************************************
 
@@ -102,7 +101,7 @@ public class PointCP implements PointCPInterface
    * @param pointB The second point.
    * @return The distance between the two points.
    */
-  public double getDistance(PointCPInterface pointB) {
+  public double getDistance(PointCP pointB) {
     // Obtain differences in X and Y, sign is not important as these values
     // will be squared later.
     double deltaX = getX() - pointB.getX();

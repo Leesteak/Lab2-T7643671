@@ -3,8 +3,6 @@
 // license found at www.lloseng.com 
 package Design3;
 
-import PointCPInterface.PointCPInterface;
-
 /**
  * This class contains instances of coordinates in either polar or
  * cartesian format.  It also provides the utilities to convert
@@ -15,7 +13,7 @@ import PointCPInterface.PointCPInterface;
  * @author Dr Timothy C. Lethbridge
  * @version July 2000
  */
-public class PointCP implements PointCPInterface
+public class PointCP
 {
   //Instance variables ************************************************
 
