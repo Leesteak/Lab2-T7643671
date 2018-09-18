@@ -24,17 +24,7 @@ public interface PointCPInterface
   public double getRho();
   
   public double getTheta();
-  
-	
-  /**
-   * Converts Cartesian coordinates to Polar coordinates.
-   */
-  public void convertStorageToPolar();
-	
-  /**
-   * Converts Polar coordinates to Cartesian coordinates.
-   */
-  public void convertStorageToCartesian();
+
 
   /**
    * Calculates the distance in between two points using the Pythagorean
