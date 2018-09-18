@@ -13,7 +13,7 @@ import java.io.*;
  * @author Paul Holden
  * @version July 2000
  */
-public class PointCPTest
+public class PointCPTestD6
 {
   //Class methods *****************************************************
 

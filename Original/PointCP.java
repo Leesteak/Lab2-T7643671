@@ -1,7 +1,7 @@
 // This file contains material supporting section 2.9 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
-
+package Original;
 /**
  * This class contains instances of coordinates in either polar or
  * cartesian format.  It also provides the utilities to convert
@@ -12,7 +12,7 @@
  * @author Dr Timothy C. Lethbridge
  * @version July 2000
  */
-public class PointCPd3
+public class PointCP
 {
   //Instance variables ************************************************
 
@@ -40,7 +40,7 @@ public class PointCPd3
   /**
    * Constructs a coordinate object, with a type identifier.
    */
-  public PointCPd3(char type, double xOrRho, double yOrTheta)
+  public PointCP(char type, double xOrRho, double yOrTheta)
   {
     if(type != 'C' && type != 'P')
       throw new IllegalArgumentException();
@@ -89,12 +89,34 @@ public class PointCPd3
   /**
    * Converts Cartesian coordinates to Polar coordinates.
    */
-  public String getPolar()
+  public void convertStorageToPolar()
   {
-    return ("("+getRho()+", "+getTheta()+")");
+    if(typeCoord != 'P')
+    {
+      //Calculate RHO and THETA
+      double temp = getRho();
+      yOrTheta = getTheta();
+      xOrRho = temp;
+      
+      typeCoord = 'P';  //Change coord type identifier
+    }
   }
 	
-
+  /**
+   * Converts Polar coordinates to Cartesian coordinates.
+   */
+  public void convertStorageToCartesian()
+  {
+    if(typeCoord != 'C')
+    {
+      //Calculate X and Y
+      double temp = getX();
+      yOrTheta = getY();
+      xOrRho = temp;
+   
+      typeCoord = 'C';	//Change coord type identifier
+    }
+  }
 
   /**
    * Calculates the distance in between two points using the Pythagorean
@@ -104,7 +126,7 @@ public class PointCPd3
    * @param pointB The second point.
    * @return The distance between the two points.
    */
-  public double getDistance(PointCPd3 pointB)
+  public double getDistance(PointCP pointB)
   {
     // Obtain differences in X and Y, sign is not important as these values
     // will be squared later.
@@ -122,13 +144,13 @@ public class PointCPd3
    * @param rotation The number of degrees to rotate the point.
    * @return The rotated image of the original point.
    */
-  public PointCPd3 rotatePoint(double rotation)
+  public PointCP rotatePoint(double rotation)
   {
     double radRotation = Math.toRadians(rotation);
     double X = getX();
     double Y = getY();
         
-    return new PointCPd3('C',
+    return new PointCP('C',
       (Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
       (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
   }
