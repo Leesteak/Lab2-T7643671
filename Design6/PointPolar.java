@@ -47,6 +47,15 @@ public class PointPolar {
         }
     }
 
+    /**
+     * Constructs a coordinate object with implicit polar coordinates
+     */
+
+    public PointPolar(double rho, double theta) {
+        this.rho = rho;
+        this.theta = theta;
+    }
+
 
     //Instance methods **************************************************
 
@@ -106,18 +115,16 @@ public class PointPolar {
      * @param rotation The number of degrees to rotate the point.
      * @return The rotated image of the original point.
      */
-    public PointCP rotatePoint(double rotation) {
+    public PointPolar rotatePoint(double rotation) {
         double radRotation = Math.toRadians(rotation);
         double X = getX();
         double Y = getY();
 
-        return 0;
-
         // TODO: Rework the return to match the current form
-    /*
-    return new PointCPPolar('C',
-      (Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
-      (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));*/
+
+        return new PointPolar('C',
+                (Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
+                (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));*/
     }
 
     /**
