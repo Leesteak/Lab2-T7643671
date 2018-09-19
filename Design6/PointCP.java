@@ -39,7 +39,6 @@ public interface PointCP {
      * Rotates the specified point by the specified number of degrees.
      * Not required until E2.30
      *
-     * @param point    The point to rotate
      * @param rotation The number of degrees to rotate the point.
      * @return The rotated image of the original point.
      */
@@ -50,9 +49,5 @@ public interface PointCP {
      *
      * @return A String containing information about the coordinates.
      */
-    default String toString() {
-        return "Stored as " + (typeCoord == 'C'
-                ? "Cartesian  (" + getX() + "," + getY() + ")"
-                : "Polar [" + getRho() + "," + getTheta() + "]") + "\n";
-    }
+    public String toString();
 }

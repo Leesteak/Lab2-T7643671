@@ -3,6 +3,7 @@
 // license found at www.lloseng.com 
 package Design6;
 
+
 /**
  * This class contains instances of coordinates in either polar or
  * cartesian format.  It also provides the utilities to convert
@@ -14,7 +15,7 @@ package Design6;
  * @version July 2000
  */
 
-public class PointPolar {
+public class PointPolar implements PointCP {
     //Instance variables ************************************************
 
     /**
@@ -124,7 +125,7 @@ public class PointPolar {
 
         return new PointPolar('C',
                 (Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
-                (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));*/
+                (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
     }
 
     /**
@@ -133,8 +134,6 @@ public class PointPolar {
      * @return A String containing information about the coordinates.
      */
     public String toString() {
-        return "Stored as " + (typeCoord == 'C'
-                ? "Cartesian  (" + getX() + "," + getY() + ")"
-                : "Polar [" + getRho() + "," + getTheta() + "]") + "\n";
+        return "Stored as Polar [" + getRho() + "," + getTheta() + "]" + "\n";
     }
 }
