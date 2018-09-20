@@ -1,7 +1,7 @@
 // This file contains material supporting section 2.9 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
-
+package Design3;
 import java.io.*;
 
 /**
@@ -13,7 +13,7 @@ import java.io.*;
  * @author Paul Holden
  * @version July 2000
  */
-public class PointCPTestD2
+public class PointCPTestD3
 {
   //Class methods *****************************************************
 
@@ -33,16 +33,16 @@ public class PointCPTestD2
    */
   public static void main(String[] args)
   {
-    PointCPd2 point;
+    PointCPd3 point;
 
-    System.out.println("Cartesian-Polar Coordinates Conversion Program - Implementing Design 2");
+    System.out.println("Cartesian-Polar Coordinates Conversion Program - Implementing Design 3");
 
     // Check if the user input coordinates from the command line
     // If he did, create the PointCP object from these arguments.
     // If he did not, prompt the user for them.
     try
     {
-      point = new PointCPd2(args[0].toUpperCase().charAt(0),
+      point = new PointCPd3(args[0].toUpperCase().charAt(0),
         Double.valueOf(args[1]).doubleValue(), 
         Double.valueOf(args[2]).doubleValue());
     }
@@ -64,7 +64,7 @@ public class PointCPTestD2
       }
     }
     System.out.println("\nYou entered:\n" + point);
-    System.out.println("\nAfter asking to return as Cartesian:\n" + point.getCartesian());
+    System.out.println("\nAfter asking to return as Polar:\n" + point.getPolar());
 
   }
 
@@ -78,14 +78,14 @@ public class PointCPTestD2
    * @throws IOException If there is an error getting input from
    *         the user.
    */
-  private static PointCPd2 getInput() throws IOException
+  private static PointCPd3 getInput() throws IOException
   {
     byte[] buffer = new byte[1024];  //Buffer to hold byte input
     boolean isOK = false;  // Flag set if input correct
     String theInput = "";  // Input information
     
     //Information to be passed to the constructor
-    char coordType = 'P'; // Defaulted to P
+    char coordType = 'C'; // Defaulted to C
     double a = 0.0;
     double b = 0.0;
 
@@ -135,6 +135,6 @@ public class PointCPTestD2
       isOK = false;
     }
     //Return a new PointCP object
-    return (new PointCPd2(coordType, a, b));
+    return (new PointCPd3(coordType, a, b));
   }
 }
