@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 
 
 /**
@@ -123,17 +124,17 @@ public class PointCPTestGeneric {
     		// Generate appropriate point instances for each design
     		for (int j = 0; j < size; j++) {
     			if (design == 1) { // Design 2
-    				points[i] = new Design2.PointCP('P', generateCoord('P'), generateCoord('P'));
+    				points[i] = new Design2.PointCP('P', generateCoord(), generateCoord());
     			}
     			else if (design == 2) { // Design 3
-    				points[i] = new Design3.PointCP('C', generateCoord('C'), generateCoord('C'));
+    				points[i] = new Design3.PointCP('C', generateCoord(), generateCoord());
     			}
     			else { // Design 6
     				if (i < (size/2)) {
-    					points[i] = new Design6.PointPolar(generateCoord('P'), generateCoord('P'));
+    					points[i] = new Design6.PointPolar(generateCoord(), generateCoord());
     				}
     				else {
-    					points[i] = new Design6.PointCartesian(generateCoord('C'), generateCoord('C'));
+    					points[i] = new Design6.PointCartesian(generateCoord(), generateCoord());
     				}
     			}
     		}
@@ -224,9 +225,10 @@ public class PointCPTestGeneric {
     		results.addTime(end);
     	}
     }
-    
-    // TODO: Function to generate random coordinates of cartesian or polar type
+
     private static int generateCoord(char type) {
-    	return 0;
+    	Random rand = new Random();
+
+		return rand.nextInt(360)+1;
     }
 }
