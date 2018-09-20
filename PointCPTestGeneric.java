@@ -87,7 +87,7 @@ public class PointCPTestGeneric {
     }
     
     private static void processTest(TestDesign design) {
-    	String[] tests = {"Calculate Distance", "Rotate Point", "Generate Coordinate Cartesian", "Generate Coordinate Polar"}
+    	String[] tests = {"Calculate Distance", "Rotate Point", "Generate Coordinate Cartesian", "Generate Coordinate Polar"};
     	System.out.println("Data for " + design.getDesignName() + "...");
     	
     	// Spit out all test statistics
