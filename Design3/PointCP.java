@@ -1,7 +1,8 @@
 // This file contains material supporting section 2.9 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
-package Design6;
+package Design3;
+
 /**
  * This class contains instances of coordinates in either polar or
  * cartesian format.  It also provides the utilities to convert
@@ -12,7 +13,7 @@ package Design6;
  * @author Dr Timothy C. Lethbridge
  * @version July 2000
  */
-public class PointCPd6
+public class PointCP
 {
   //Instance variables ************************************************
 
@@ -40,7 +41,7 @@ public class PointCPd6
   /**
    * Constructs a coordinate object, with a type identifier.
    */
-  public PointCP6(char type, double xOrRho, double yOrTheta)
+  public PointCP(char type, double xOrRho, double yOrTheta)
   {
     if(type != 'C' && type != 'P')
       throw new IllegalArgumentException();
@@ -89,34 +90,12 @@ public class PointCPd6
   /**
    * Converts Cartesian coordinates to Polar coordinates.
    */
-  public void convertStorageToPolar()
+  public String getPolar()
   {
-    if(typeCoord != 'P')
-    {
-      //Calculate RHO and THETA
-      double temp = getRho();
-      yOrTheta = getTheta();
-      xOrRho = temp;
-      
-      typeCoord = 'P';  //Change coord type identifier
-    }
+    return ("("+getRho()+", "+getTheta()+")");
   }
 	
-  /**
-   * Converts Polar coordinates to Cartesian coordinates.
-   */
-  public void convertStorageToCartesian()
-  {
-    if(typeCoord != 'C')
-    {
-      //Calculate X and Y
-      double temp = getX();
-      yOrTheta = getY();
-      xOrRho = temp;
-   
-      typeCoord = 'C';	//Change coord type identifier
-    }
-  }
+
 
   /**
    * Calculates the distance in between two points using the Pythagorean
@@ -126,7 +105,7 @@ public class PointCPd6
    * @param pointB The second point.
    * @return The distance between the two points.
    */
-  public double getDistance(PointCP pointB)
+  public double getDistance(PointCPInterface pointB)
   {
     // Obtain differences in X and Y, sign is not important as these values
     // will be squared later.
