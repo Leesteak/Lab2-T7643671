@@ -95,7 +95,7 @@ public class PointCPTestGeneric {
     		String test = tests[i];
     		System.out.printf("\tTest name: %s\n", test);
     		// Overall stats
-    		System.out.println("\t\tTotal runtime: " + design.getTotal(i));
+    		System.out.println("\t\tTotal runtime: " + (long) design.getTotal(i));
     		System.out.println("\t\tAverage test time: " + design.getAverage(i));
     		System.out.println("\t\tBest test time: " + design.getTotalBest(i));
     		System.out.println("\t\tWorst test time: " + design.getTotalWorst(i));

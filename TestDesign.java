@@ -67,7 +67,7 @@ public class TestDesign {
 		float best = test.getBest();
 		float worst = test.getWorst();
 		float total = test.getTotal();
-		float average = (float) test.getAverage();
+		float average = test.getAverage();
 		// getMedian clears the internal stack for the TestAction so we don't run out of memory
 		double median = test.getMedian();
 		byte type = test.getTestType();

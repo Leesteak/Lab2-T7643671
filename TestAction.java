@@ -108,7 +108,7 @@ public class TestAction {
 	public float getMedian() {
 		if (median != -1) return median; // Save the median value if no more values have been added
 		int size = timesStack.size();
-		float[] values = new float[size];
+		Float[] values = new Float[size];
 		
 		// Load all values into the 'values' array
 		for (int i = 0; i < size; i++) {
