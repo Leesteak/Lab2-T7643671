@@ -5,23 +5,23 @@ import java.util.Arrays;
 */
 
 public class TestAction {
-	private TStack<Long> timesStack;
-	private double median;
-	private long total;
-	private long best;
-	private long worst;
-	private String actionName;
+	private TStack<Float> timesStack;
+	private float median;
+	private float total;
+	private float best;
+	private float worst;
+	private byte actionType;
 	
 	
 	/**
 	* Constructor for the class
 	*/
 	
-	public TestAction(String actionName){
-		this.timesStack = new TStack<Long>();
+	public TestAction(byte actionType){
+		this.timesStack = new TStack<Float>();
 		this.worst = 0;
 		this.best = -1;
-		this.actionName = actionName;
+		this.actionType = actionType;
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class TestAction {
 	*/
 	
 	public void addTime(long time){
-		timesStack.push(time);
+		timesStack.push((float) time);
 		total += time;
 		if (best == -1 || best > time) best = time;
 		if (worst < time) worst = time;
@@ -50,14 +50,14 @@ public class TestAction {
 	* Pops the last time from the stack
 	*/
 	
-	public long getLastTime() {
+	public float getLastTime() {
 		return timesStack.pop();
 	}
 	
 	/**
 	* Return the total time for the run
 	*/
-	public long getTotal() {
+	public float getTotal() {
 		return total;
 	}
 	
@@ -65,8 +65,8 @@ public class TestAction {
 	* Return the average time of the run
 	*/
 	
-	public double getAverage() {
-		return (double) total/(double) getTestSize();
+	public float getAverage() {
+		return total/(float) getTestSize();
 	}
 	
 	/**
@@ -81,7 +81,7 @@ public class TestAction {
 	* Return the worst sample time in the run
 	*/
 	
-	public long getWorst() {
+	public float getWorst() {
 		return worst;
 	}
 	
@@ -89,7 +89,7 @@ public class TestAction {
 	* Return the best sample time in the run
 	*/
 	
-	public long getBest() {
+	public float getBest() {
 		return best;
 	}
 	
@@ -97,18 +97,18 @@ public class TestAction {
 	* Return the name of the test
 	*/
 	
-	public String getTestName() {
-		return actionName;
+	public byte getTestType() {
+		return actionType;
 	}
 	
 	/**
 	* Return the median value of the run and clears the stack (avoid those pesky OutOfMemory errors)
 	*/
 	
-	public double getMedian() {
+	public float getMedian() {
 		if (median != -1) return median; // Save the median value if no more values have been added
 		int size = timesStack.size();
-		long[] values = new long[size];
+		float[] values = new float[size];
 		
 		// Load all values into the 'values' array
 		for (int i = 0; i < size; i++) {
@@ -117,8 +117,8 @@ public class TestAction {
 		
 		Arrays.sort(values);
 		
-		if (size % 2 == 0) median = ((double) values[size/2] + (double) values[size/2-1]) / 2;
-		else median = (double) values[size/2];
+		if (size % 2 == 0) median = ((float) values[size/2] + (float) values[size/2-1]) / 2;
+		else median = (float) values[size/2];
 
 		
 		return median;

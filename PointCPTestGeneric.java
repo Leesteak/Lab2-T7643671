@@ -91,21 +91,21 @@ public class PointCPTestGeneric {
     	System.out.println("Data for " + design.getDesignName() + "...");
     	
     	// Spit out all test statistics
-    	for (int i = 0; i < tests.length; i++){
+    	for (byte i = 0; i < tests.length; i++){
     		String test = tests[i];
     		System.out.printf("\tTest name: %s\n", test);
     		// Overall stats
-    		System.out.println("\t\tTotal runtime: " + design.getTotal(test));
-    		System.out.println("\t\tAverage test time: " + design.getAverage(test));
-    		System.out.println("\t\tBest test time: " + design.getTotalBest(test));
-    		System.out.println("\t\tWorst test time: " + design.getTotalWorst(test));
+    		System.out.println("\t\tTotal runtime: " + design.getTotal(i));
+    		System.out.println("\t\tAverage test time: " + design.getAverage(i));
+    		System.out.println("\t\tBest test time: " + design.getTotalBest(i));
+    		System.out.println("\t\tWorst test time: " + design.getTotalWorst(i));
     		System.out.println();
     		// Sample Stats
-    		System.out.println("\t\tBest sample time: " + design.getSampleBest(test));
-    		System.out.println("\t\tWorst sample time: " + design.getSampleWorst(test));
-    		System.out.println("\t\tAverage sample time: " + design.getSampleAverage(test));
+    		System.out.println("\t\tBest sample time: " + design.getSampleBest(i));
+    		System.out.println("\t\tWorst sample time: " + design.getSampleWorst(i));
+    		System.out.println("\t\tAverage sample time: " + design.getSampleAverage(i));
     		System.out.println();
-    		System.out.println("\t\tAverage of median times: " + design.getMedianAverage(test));
+    		System.out.println("\t\tAverage of median times: " + design.getMedianAverage(i));
     	}
     }
     
@@ -136,14 +136,11 @@ public class PointCPTestGeneric {
     				}
     			}
     		}
-    		
-    		// Run all tests and add them to the TestDesign
-    		for (int j = 0; j < size; j++){
-    			results.addTest(testDistance(design, points));
-    			results.addTest(testRotate(design, points));
-    			results.addTest(testCoordinates(design, points, 'C'));
-    			results.addTest(testCoordinates(design, points, 'P'));
-    		}
+
+    		results.addTest(testDistance(design, points));
+			results.addTest(testRotate(design, points));
+			results.addTest(testCoordinates(design, points, 'C'));
+			results.addTest(testCoordinates(design, points, 'P'));
     	}
     	
     	return results;
@@ -167,7 +164,7 @@ public class PointCPTestGeneric {
     		testPoint = new Design6.PointCartesian(0, 0);
     	}
     	
-    	TestAction results = new TestAction("Calculate Distance");
+    	TestAction results = new TestAction((byte) 0);
     	long start, end;
     	
     	for (int i = 0; i < points.length; i++) {
@@ -189,7 +186,7 @@ public class PointCPTestGeneric {
     }
     
     private static TestAction testRotate(int design, Object[] points) { // Using generic Object class before casting
-    	TestAction results = new TestAction("Rotate Point");
+    	TestAction results = new TestAction((byte) 1);
     	long start, end;
     	
     	for (int i=0; i < points.length; i++) {
@@ -211,7 +208,7 @@ public class PointCPTestGeneric {
     }
     
     private static TestAction testCoordinates(int design, Object[] points, char type) { // Using generic Object class before casting
-    	TestAction results = new TestAction("Generate Coordinate " + ((type=='C') ? "Cartesian" : "Polar"));
+    	TestAction results = new TestAction((type == 'C') ? (byte) 2 : (byte) 3);
     	long start, end;
     	double xOrRho, yOrTheta;
     	
