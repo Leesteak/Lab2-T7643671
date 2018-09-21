@@ -102,7 +102,7 @@ public class TestAction {
 	}
 	
 	/**
-	* Return the median value of the run
+	* Return the median value of the run and clears the stack (avoid those pesky OutOfMemory errors)
 	*/
 	
 	public double getMedian() {
@@ -119,12 +119,7 @@ public class TestAction {
 		
 		if (size % 2 == 0) median = ((double) values[size/2] + (double) values[size/2-1]) / 2;
 		else median = (double) values[size/2];
-		
-		
-		// Push values back onto the queue in case more values get added later, to re-calculate the median if need be
-		for (int i = 0; i < size; i++) {
-			timesStack.push(values[i]);
-		}
+
 		
 		return median;
 	}

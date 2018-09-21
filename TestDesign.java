@@ -81,8 +81,9 @@ public class TestDesign {
 		long best = test.getBest();
 		long worst = test.getWorst();
 		long total = test.getTotal();
-		double median = test.getMedian();
 		double average = test.getAverage();
+		// getMedian clears the internal stack for the TestAction so we don't run out of memory
+		double median = test.getMedian();
 		int type = convertNameToType(test.getTestName());
 		
 		((TStack<TestAction>) results[type]).push(test);
