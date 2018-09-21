@@ -121,8 +121,6 @@ public class PointPolar implements PointCP {
         double X = getX();
         double Y = getY();
 
-        // TODO: Rework the return to match the current form
-
         return new PointPolar('C',
                 (Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
                 (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));

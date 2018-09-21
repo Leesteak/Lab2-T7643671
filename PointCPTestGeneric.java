@@ -9,8 +9,8 @@ public class PointCPTestGeneric {
 
 
 	// Testing Constants
-    private static final int RUNS = 100;
-    private static final int TEST_SIZE = 10000;
+    private static final int RUNS = 10;
+    private static final int TEST_SIZE = 1000;
     private static final int DESIGN = 4;
 
     public static void main(String[] args) {
@@ -55,7 +55,7 @@ public class PointCPTestGeneric {
             runs = RUNS;
         }
         
-        System.out.print("What should be the test size?");
+        System.out.print("What should be the test size? ");
         
         try {
         	testSize = scanner.nextInt();
@@ -72,7 +72,7 @@ public class PointCPTestGeneric {
         
         System.out.printf("Starting %d runs with a test size of %d\n", runs, testSize);
         
-    	if (design < 4) {
+    	if (design == 4) {
     		results.push(testDesign(3, runs, testSize));
     		results.push(testDesign(2, runs, testSize));
     		results.push(testDesign(1, runs, testSize));
@@ -122,17 +122,17 @@ public class PointCPTestGeneric {
     		// Generate appropriate point instances for each design
     		for (int j = 0; j < size; j++) {
     			if (design == 1) { // Design 2
-    				points[i] = new Design2.PointCP('P', generateCoord(), generateCoord());
+    				points[j] = new Design2.PointCP('P', generateCoord(), generateCoord());
     			}
     			else if (design == 2) { // Design 3
-    				points[i] = new Design3.PointCP('C', generateCoord(), generateCoord());
+    				points[j] = new Design3.PointCP('C', generateCoord(), generateCoord());
     			}
     			else { // Design 6
-    				if (i < (size/2)) {
-    					points[i] = new Design6.PointPolar(generateCoord(), generateCoord());
+    				if (j < (size/2)) {
+    					points[j] = new Design6.PointPolar(generateCoord(), generateCoord());
     				}
     				else {
-    					points[i] = new Design6.PointCartesian(generateCoord(), generateCoord());
+    					points[j] = new Design6.PointCartesian(generateCoord(), generateCoord());
     				}
     			}
     		}

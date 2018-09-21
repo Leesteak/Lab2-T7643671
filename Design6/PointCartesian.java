@@ -13,7 +13,7 @@ package Design6;
  * @author Dr Timothy C. Lethbridge
  * @version July 2000
  */
-public class PointCartesian {
+public class PointCartesian implements PointCP {
     //Instance variables ************************************************
 
     /**

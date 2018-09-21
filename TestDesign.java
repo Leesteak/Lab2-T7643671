@@ -66,10 +66,10 @@ public class TestDesign {
 	* @param testName the name of the test
 	*/
 	private int convertNameToType(String testName) {
-		if (testName == "Calculate Distance") return DISTANCE;
-		else if (testName == "Rotate Point") return ROTATE;
-		else if (testName == "Generate Coordinate Cartesian") return CARTESIAN;
-		else if (testName == "Generate Coordinate Polar") return POLAR;
+		if (testName.equals("Calculate Distance")) return DISTANCE;
+		else if (testName.equals("Rotate Point")) return ROTATE;
+		else if (testName.equals("Generate Coordinate Cartesian")) return CARTESIAN;
+		else if (testName.equals("Generate Coordinate Polar")) return POLAR;
 		else return -1;
 	}
 	
