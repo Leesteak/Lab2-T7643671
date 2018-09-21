@@ -25,13 +25,13 @@ public class TestDesign {
 	* Arrays to hold all tests and statistics
 	*/
 	
-	private TStack<TestAction>[] results = new TStack<TestAction>[4]
+	private Object[] results = new Object[4];
 	private long[] sampleBest = new long[4];
 	private long[] sampleWorst = new long[4];
 	private long[] totalBest = new long[4];
 	private long[] totalWorst = new long[4];
 	private long[] total = new long[4];
-	private long[] sampleAverages = new long[4];
+	private double[] sampleAverages = new double[4];
 	private long[] medianSum = new long [4];
 	
 	
@@ -42,7 +42,7 @@ public class TestDesign {
 	*/
 	
 	public TestDesign(int design) {
-		if (design > 3) throw IndexOutOfBoundsException();
+		if (design > 3) throw new IndexOutOfBoundsException();
 		
 		if (design < 3) {
 			designName = "Design " + (design+1);
@@ -56,6 +56,7 @@ public class TestDesign {
 			totalBest[i] = -1;
 			totalWorst[i] = 0;
 			total[i] = 0;
+			results[i] = new TStack<TestAction>();
 		}
 	}
 	
@@ -69,6 +70,7 @@ public class TestDesign {
 		else if (testName == "Rotate Point") return ROTATE;
 		else if (testName == "Generate Coordinate Cartesian") return CARTESIAN;
 		else if (testName == "Generate Coordinate Polar") return POLAR;
+		else return -1;
 	}
 	
 	/**
@@ -79,11 +81,11 @@ public class TestDesign {
 		long best = test.getBest();
 		long worst = test.getWorst();
 		long total = test.getTotal();
-		long median = test.getMedian();
-		long average = test.getAverage();
+		double median = test.getMedian();
+		double average = test.getAverage();
 		int type = convertNameToType(test.getTestName());
 		
-		results[type].push(test);
+		((TStack<TestAction>) results[type]).push(test);
 		if (sampleBest[type] == -1 || sampleBest[type] > best) sampleBest[type] = best;
 		if (sampleWorst[type] < worst) sampleWorst[type] = worst;
 		if (totalBest[type] == -1 || totalBest[type] > total) totalBest[type] = total;
@@ -111,7 +113,7 @@ public class TestDesign {
 	public long getAverage(String testName) {
 		int test = convertNameToType(testName);
 		
-		return total[test]/results[test].getSize();
+		return total[test]/((TStack<TestAction>)results[test]).size();
 	}
 	
 	/**
@@ -135,7 +137,7 @@ public class TestDesign {
 	public long getMedianAverage(String testName) {
 		int test = convertNameToType(testName);
 		
-		return medianSum[test]/results[test].getSize();
+		return medianSum[test]/((TStack<TestAction>)results[test]).size();
 	}
 	
 	/**
@@ -171,7 +173,7 @@ public class TestDesign {
 	public long getTotalBest(String testName) {
 		int test = convertNameToType(testName);
 		
-		return sampleTotalBest[test];
+		return totalBest[test];
 	}
 	
 	/**
@@ -183,7 +185,7 @@ public class TestDesign {
 	public long getTotalWorst(String testName) {
 		int test = convertNameToType(testName);
 		
-		return sampleTotalWorst[test];
+		return totalWorst[test];
 	}
 	
 	/**
@@ -192,16 +194,14 @@ public class TestDesign {
 	* @param testName the name of the test
 	*/
 	
-	public long popTest(String testName) {
+	public TestAction popTest(String testName) {
 		int test = convertNameToType(testName);
 		
-		return results[test].pop();
+		return ((TStack<TestAction>)results[test]).pop();
 	}
 	
 	/**
 	* Return the name of the design
-	*
-	* @param testName the name of the test
 	*/
 	
 	public String getDesignName() {
@@ -214,9 +214,9 @@ public class TestDesign {
 	* @param testName the name of the test
 	*/
 	
-	public long getSampleAverage(String testName) {
+	public double getSampleAverage(String testName) {
 		int test = convertNameToType(testName);
 		
-		return sampleAverages[test]/results[test].getSize();
+		return sampleAverages[test]/((TStack<TestAction>) results[test]).size();
 	}
 }

@@ -1,10 +1,11 @@
+import java.util.Arrays;
 /**
 * Data structure used to hold data about individual test runs
 *
 */
 
 public class TestAction {
-	private TStack<long> timesStack;
+	private TStack<Long> timesStack;
 	private double median;
 	private long total;
 	private long best;
@@ -17,8 +18,7 @@ public class TestAction {
 	*/
 	
 	public TestAction(String actionName){
-		this.timesStack = new TStack<long>();
-		this.tests = 0;
+		this.timesStack = new TStack<Long>();
 		this.worst = 0;
 		this.best = -1;
 		this.actionName = actionName;
@@ -35,7 +35,7 @@ public class TestAction {
 		total += time;
 		if (best == -1 || best > time) best = time;
 		if (worst < time) worst = time;
-		median = null;
+		median = -1;
 	}
 	
 	/**
@@ -105,9 +105,9 @@ public class TestAction {
 	* Return the median value of the run
 	*/
 	
-	public long getMedian() {
-		if (median != null) return median; // Save the median value if no more values have been added
-		int size = timesStack.getSize();
+	public double getMedian() {
+		if (median != -1) return median; // Save the median value if no more values have been added
+		int size = timesStack.size();
 		long[] values = new long[size];
 		
 		// Load all values into the 'values' array

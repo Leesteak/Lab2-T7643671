@@ -9,13 +9,13 @@ public class PointCPTestGeneric {
 
 
 	// Testing Constants
-    static final int RUNS = 100;
-    static final int TEST_SIZE = 10000;
-    static final int DESIGN = 4;
+    private static final int RUNS = 100;
+    private static final int TEST_SIZE = 10000;
+    private static final int DESIGN = 4;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // User input scanner
-        TStack<TestDesign> results; // Used a stack in case of full test
+        TStack<TestDesign> results = new TStack<TestDesign>(); // Used a stack in case of full test
         int runs;
         int design;
         int testSize;
@@ -40,7 +40,7 @@ public class PointCPTestGeneric {
         
         if (design == 0) return;
         
-        System.out.println("Running test on " + (design = 4) ? ("all designs") : ((design < 3) ? ("Design " + (design+1)) : "Design 6"));
+        System.out.println("Running test on " + ((design == 4) ? ("all designs") : ((design < 3) ? ("Design " + (design+1)) : "Design 6")));
         
         
         // Test size
@@ -55,7 +55,7 @@ public class PointCPTestGeneric {
             runs = RUNS;
         }
         
-        System.out.print("What should be the test size?")
+        System.out.print("What should be the test size?");
         
         try {
         	testSize = scanner.nextInt();
@@ -73,12 +73,12 @@ public class PointCPTestGeneric {
         System.out.printf("Starting %d runs with a test size of %d\n", runs, testSize);
         
     	if (design < 4) {
-    		results.push(testDesign(3, runs, size));
-    		results.push(testDesign(2, runs, size));
-    		results.push(testDesign(1, runs, size));
+    		results.push(testDesign(3, runs, testSize));
+    		results.push(testDesign(2, runs, testSize));
+    		results.push(testDesign(1, runs, testSize));
     	}
     	else {
-    		results.push(testDesign(design, runs, size));
+    		results.push(testDesign(design, runs, testSize));
     	}
     	
     	while (results.peek() != null) { // See all results that have been collected
@@ -92,7 +92,7 @@ public class PointCPTestGeneric {
     	
     	// Spit out all test statistics
     	for (int i = 0; i < tests.length; i++){
-    		String test = tests[i]
+    		String test = tests[i];
     		System.out.printf("\tTest name: %s\n", test);
     		// Overall stats
     		System.out.println("\t\tTotal runtime: " + design.getTotal(test));
@@ -116,11 +116,9 @@ public class PointCPTestGeneric {
     	
     	for (int i = 0; i < runs; i++) {
     		
-    		// Initialize the appropriate design object
-    		if (design == 1) Design2.PointCP[] points = new Design2.PointCP[size];
-    		else if (design == 2) Design3.PointCP[] points = new Design3.PointCP[size];
-    		else Design6.PointCP[] points = new Design6.PointCP[size];
-    		
+
+    		Object[] points = new Object[size];
+
     		// Generate appropriate point instances for each design
     		for (int j = 0; j < size; j++) {
     			if (design == 1) { // Design 2
@@ -152,32 +150,37 @@ public class PointCPTestGeneric {
     }
     
     private static TestAction testDistance(int design, Object[] points) { // Using generic Object class before casting
+    	Object testPoint;
     	if (design == 1) {
-    		Design2.PointCP[] testing = (Design2.PointCP[]) points;
-    		Design2.PointCP testPoint = new Design2.PointCP('C', 0, 0);
+    		testPoint = new Design2.PointCP('C', 0, 0);
     	}
     	else if (design == 2){
-    		Design3.PointCP[] testing = (Design3.PointCP[]) points;
-    		Design3.PointCP testPoint = new Design3.PointCP('P', 0, 0);
+    		testPoint = new Design3.PointCP('P', 0, 0);
     	}
     	else {
-    		Design6.PointCP[] testing = (Design6.PointCP[]) points;
-    		
     		/**
     		* Since PointCartesian and PointPolar share an interface and getDistance uses the general interface for
     		* its implementation, we can use either PointCartesian or PointPolar for this test. PointCartesian
     		* was selected for no particular reason.
     		*/
     		
-    		Design6.PointCP testPoint = new Design6.PointCartesian(0, 0);
+    		testPoint = new Design6.PointCartesian(0, 0);
     	}
     	
     	TestAction results = new TestAction("Calculate Distance");
     	long start, end;
     	
-    	for (int i = 0; i < testing.length; i++) {
+    	for (int i = 0; i < points.length; i++) {
     		start = System.nanoTime();
-    		testing[i].getDistance(testPoint);
+    		if (design == 1) {
+				((Design2.PointCP) points[i]).getDistance((Design2.PointCP) testPoint);
+			}
+			else if (design == 2) {
+				((Design3.PointCP) points[i]).getDistance((Design3.PointCP) testPoint);
+			}
+			else {
+				((Design6.PointCP) points[i]).getDistance((Design6.PointCP) testPoint);
+			}
     		end = System.nanoTime() - start;
     		results.addTime(end);
     	}
@@ -186,47 +189,69 @@ public class PointCPTestGeneric {
     }
     
     private static TestAction testRotate(int design, Object[] points) { // Using generic Object class before casting
-    	if (design == 1) Design2.PointCP[] testing = (Design2.PointCP[]) points;
-    	else if (design == 2) Design3.PointCP[] testing = (Design3.PointCP[]) points;
-    	else Design6.PointCP[] testing = (Design6.PointCP[]) points;
     	TestAction results = new TestAction("Rotate Point");
     	long start, end;
     	
-    	for (int i=0; i < testing.length; i++) {
+    	for (int i=0; i < points.length; i++) {
     		start = System.nanoTime();
-    		testing[i].rotatePoint(30); // Rotate 30 degrees
+    		if (design == 1) {
+				((Design2.PointCP) points[i]).rotatePoint(30);
+			}
+			else if (design == 2) {
+				((Design3.PointCP) points[i]).rotatePoint(30);
+			}
+			else {
+				((Design6.PointCP) points[i]).rotatePoint(30);
+			}
     		end = System.nanoTime() - start;
-    		results.addTime(end)
+    		results.addTime(end);
     	}
     	
     	return results;
     }
     
     private static TestAction testCoordinates(int design, Object[] points, char type) { // Using generic Object class before casting
-    	if (design == 1) Design2.PointCP[] testing = (Design2.PointCP[]) points;
-    	else if (design == 2) Design3.PointCP[] testing = (Design3.PointCP[]) points;
-    	else Design6.PointCP[] testing = (Design6.PointCP[]) points;
-    	
-    	TestAction results = new TestAction("Generate Coordinate " + (type=='C') ? "Cartesian" : "Polar");
+    	TestAction results = new TestAction("Generate Coordinate " + ((type=='C') ? "Cartesian" : "Polar"));
     	long start, end;
     	double xOrRho, yOrTheta;
     	
-    	for (int i = 0; i < testing.length; i++) {
+    	for (int i = 0; i < points.length; i++) {
     		start = System.nanoTime();
     		if (type == 'C') {
-    			xOrRho = testing[i].getX();
-    			yOrTheta = testing[i].getY();
+    			if (design == 1) {
+					xOrRho = ((Design2.PointCP) points[i]).getX();
+					yOrTheta = ((Design2.PointCP) points[i]).getY();
+				}
+				else if (design == 2){
+					xOrRho = ((Design3.PointCP) points[i]).getX();
+					yOrTheta = ((Design3.PointCP) points[i]).getY();
+				}
+				else {
+					xOrRho = ((Design6.PointCP) points[i]).getX();
+					yOrTheta = ((Design6.PointCP) points[i]).getY();
+				}
     		}
     		else {
-    			xOrRho = testing[i].getRho();
-    			yOrTheta = testing[i].getTheta();
+    			if (design == 1) {
+    				xOrRho = ((Design2.PointCP) points[i]).getRho();
+    				yOrTheta = ((Design2.PointCP) points[i]).getTheta();
+				}
+				else if (design == 2) {
+					xOrRho = ((Design3.PointCP) points[i]).getRho();
+					yOrTheta = ((Design3.PointCP) points[i]).getTheta();
+				}
+				else {
+					xOrRho = ((Design6.PointCP) points[i]).getRho();
+					yOrTheta = ((Design6.PointCP) points[i]).getTheta();
+				}
     		}
     		end = System.nanoTime() - start;
     		results.addTime(end);
     	}
+    	return results;
     }
 
-    private static int generateCoord(char type) {
+    private static int generateCoord() {
     	Random rand = new Random();
 
 		return rand.nextInt(360)+1;
