@@ -49,7 +49,7 @@ public class TimingTest {
                 arrayListTime= ((double)(finishConstruct-startConstruct)) / 1000;
                 arrayListTimeSum = (((double)(finishRun - startRun)) / 1000) - arrayListTime;
                 arrayL=null;
-                System.out.println("Array List Time:" + arrayListTime + " seconds (Growing List)");
+                System.out.println("Array List Construction Time:" + arrayListTime + " seconds (Growing List)");
 
 
             }
@@ -61,7 +61,7 @@ public class TimingTest {
                 finishRun=System.currentTimeMillis();
                 arrayListSetTime= ((double)(finishRun - startRun)) / 1000;
                 arrayLSet=null;
-                System.out.println("Array List Time:" + arrayListSetTime + " seconds (Set List)");
+                System.out.println("Array List Construction Time:" + arrayListSetTime + " seconds (Set List)");
                 System.out.println("Array List Time to Sum: " + arrayListTimeSum+ " seconds");
 
             }
@@ -82,7 +82,7 @@ public class TimingTest {
                 vectorTime= ((double)(finishConstruct-startConstruct))/1000;
                 vectorTimeSum = (((double)(finishRun-startRun)) / 1000) - vectorTime;
                 vec=null;
-                System.out.println("Vector Time:" + vectorTime + " seconds (Growing Vector)");
+                System.out.println("Vector Construction Time:" + vectorTime + " seconds (Growing Vector)");
 
 
 
@@ -95,7 +95,7 @@ public class TimingTest {
                 finishRun=System.currentTimeMillis();
                 vectorSetTime= ((double)(finishRun-startRun))/1000;
                 vecSet=null;
-                System.out.println("Vector Time:" + vectorSetTime + " seconds (Set Vector)");
+                System.out.println("Vector Construction Time:" + vectorSetTime + " seconds (Set Vector)");
                 System.out.println("Vector Time to Sum: " + vectorTimeSum+ " seconds");
             }
             else {
@@ -114,7 +114,7 @@ public class TimingTest {
                 arrayTime= ((double)(finishConstruct-startConstruct))/1000;
                 arrayTimeSum = (((double)(finishRun - startRun)) / 1000) - arrayTime;
                 arr=null;
-                System.out.println("Array Time:" + arrayTime + " seconds");
+                System.out.println("Array Construction Time:" + arrayTime + " seconds");
                 System.out.println("Array Time to sum: " + arrayTimeSum+ " seconds");
             }
 
