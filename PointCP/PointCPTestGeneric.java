@@ -1,7 +1,5 @@
 import java.util.Scanner;
 import java.util.Random;
-
-
 /**
  * Test class for all designs
  */
@@ -95,6 +93,7 @@ public class PointCPTestGeneric {
     		String test = tests[i];
     		System.out.printf("\tTest name: %s\n", test);
     		// Overall stats
+			/*
     		System.out.println("\t\tTotal runtime: " + (long) design.getTotal(i));
     		System.out.println("\t\tAverage test time: " + design.getAverage(i));
     		System.out.println("\t\tBest test time: " + design.getTotalBest(i));
@@ -105,13 +104,13 @@ public class PointCPTestGeneric {
     		System.out.println("\t\tWorst sample time: " + design.getSampleWorst(i));
     		System.out.println("\t\tAverage sample time: " + design.getSampleAverage(i));
     		System.out.println();
-    		System.out.println("\t\tAverage of median times: " + design.getMedianAverage(i));
+    		System.out.println("\t\tAverage of median sample times: " + design.getMedianAverage(i));*/
+    		System.out.println("\t\tMedian Test Time: " + design.getMedian(i));
     	}
     }
     
     private static TestDesign testDesign(int design, int runs, int size) {
     	TestDesign results = new TestDesign(design);
-    	long start, end;
     	
     	
     	for (int i = 0; i < runs; i++) {

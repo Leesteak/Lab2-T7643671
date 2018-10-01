@@ -13,88 +13,66 @@ package Design3;
  * @author Dr Timothy C. Lethbridge
  * @version July 2000
  */
-public class PointCP
-{
+public class PointCP {
   //Instance variables ************************************************
 
-  /**
-   * Contains C(artesian) or P(olar) to identify the type of
-   * coordinates that are being dealt with.
-   */
-  private char typeCoord;
-  
   /**
    * Contains the current value of X or RHO depending on the type
    * of coordinates.
    */
-  private double xOrRho;
-  
+  private double x;
+
   /**
    * Contains the current value of Y or THETA value depending on the
    * type of coordinates.
    */
-  private double yOrTheta;
-	
-  
+  private double y;
+
+
   //Constructors ******************************************************
 
   /**
    * Constructs a coordinate object, with a type identifier.
    */
-  public PointCP(char type, double xOrRho, double yOrTheta)
-  {
-    if(type != 'C' && type != 'P')
+  public PointCP(char type, double xOrRho, double yOrTheta) {
+    if (type != 'C' && type != 'P')
       throw new IllegalArgumentException();
-    this.xOrRho = xOrRho;
-    this.yOrTheta = yOrTheta;
-    typeCoord = type;
+    if (type == 'C') {
+      this.x = xOrRho;
+      this.y = yOrTheta;
+    }
+    else {
+      this.x = (Math.cos(Math.toRadians(yOrTheta)) * xOrRho);
+      this.y = (Math.sin(Math.toRadians(yOrTheta)) * xOrRho);
+    }
   }
-	
-  
-  //Instance methods **************************************************
- 
- 
-  public double getX()
-  {
-    if(typeCoord == 'C') 
-      return xOrRho;
-    else 
-      return (Math.cos(Math.toRadians(yOrTheta)) * xOrRho);
-  }
-  
-  public double getY()
-  {
-    if(typeCoord == 'C') 
-      return yOrTheta;
-    else 
-      return (Math.sin(Math.toRadians(yOrTheta)) * xOrRho);
-  }
-  
-  public double getRho()
-  {
-    if(typeCoord == 'P') 
-      return xOrRho;
-    else 
-      return (Math.sqrt(Math.pow(xOrRho, 2) + Math.pow(yOrTheta, 2)));
-  }
-  
-  public double getTheta()
-  {
-    if(typeCoord == 'P')
-      return yOrTheta;
-    else 
-      return Math.toDegrees(Math.atan2(yOrTheta, xOrRho));
-  }
-  
-	
+
   /**
-   * Converts Cartesian coordinates to Polar coordinates.
+   * Constructs a coordinate object, without a type identifier
    */
-  public String getPolar()
-  {
-    return ("("+getRho()+", "+getTheta()+")");
+  public PointCP(double x, double y){
+    this.x = x;
+    this.y = y;
   }
-	
+
+  //Instance methods **************************************************
+
+
+  public double getX() {
+    return x;
+  }
+
+  public double getY() {
+    return y;
+  }
+
+  public double getRho() {
+    return (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+  }
+
+  public double getTheta() {
+    return Math.toDegrees(Math.atan2(y, x));
+  }
 
 
   /**
@@ -104,13 +82,12 @@ public class PointCP
    * @param pointB The second point.
    * @return The distance between the two points.
    */
-  public double getDistance(PointCP pointB)
-  {
+  public double getDistance(PointCP pointB) {
     // Obtain differences in X and Y, sign is not important as these values
     // will be squared later.
     double deltaX = getX() - pointB.getX();
     double deltaY = getY() - pointB.getY();
-    
+
     return Math.sqrt((Math.pow(deltaX, 2) + Math.pow(deltaY, 2)));
   }
 
@@ -121,15 +98,14 @@ public class PointCP
    * @param rotation The number of degrees to rotate the point.
    * @return The rotated image of the original point.
    */
-  public PointCP rotatePoint(double rotation)
-  {
+  public PointCP rotatePoint(double rotation) {
     double radRotation = Math.toRadians(rotation);
     double X = getX();
     double Y = getY();
-        
+
     return new PointCP('C',
-      (Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
-      (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
+            (Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
+            (Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
   }
 
   /**
@@ -137,10 +113,7 @@ public class PointCP
    *
    * @return A String containing information about the coordinates.
    */
-  public String toString()
-  {
-    return "Stored as " + (typeCoord == 'C' 
-       ? "Cartesian  (" + getX() + "," + getY() + ")"
-       : "Polar [" + getRho() + "," + getTheta() + "]") + "\n";
+  public String toString() {
+    return "Stored as Cartesian  (" + getX() + "," + getY() + ")";
   }
 }

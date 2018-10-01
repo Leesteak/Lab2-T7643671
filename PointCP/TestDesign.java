@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
 * Data structure made to extract, organize and categorize data
 * from TestAction objects 
@@ -6,6 +8,10 @@
 */
 
 public class TestDesign {
+	private static class  TestStack {
+		TStack<TestAction> stack = new TStack<TestAction>();
+		private TStack<TestAction> getStack() { return stack; }
+	}
 	
 	/**
 	* Constants for test array position
@@ -32,7 +38,7 @@ public class TestDesign {
 	private float[] total = new float[4];
 	private float[] sampleAverages = new float[4];
 	private float[] medianSum = new float[4];
-	private int[] tests = new int[4];
+	private TestStack[] tests = new TestStack[4];
 	
 	
 	/**
@@ -55,7 +61,7 @@ public class TestDesign {
 			totalBest[i] = -1;
 			totalWorst[i] = 0;
 			total[i] = 0;
-			tests[i] = 0;
+			tests[i] = new TestStack();
 		}
 	}
 	
@@ -80,7 +86,7 @@ public class TestDesign {
 		this.total[type] += total;
 		this.medianSum[type] += median;
 		this.sampleAverages[type] += average;
-		this.tests[type]++;
+		this.tests[type].getStack().push(test);
 	}
 	
 	/**
@@ -97,9 +103,7 @@ public class TestDesign {
 	* @param test the type of the test
 	*/
 	
-	public float getAverage(int test) {
-		return total[test]/tests[test];
-	}
+	public float getAverage(int test) { return total[test]/tests[test].getStack().size(); }
 	
 	/**
 	* Returns the total runtime of a specific test
@@ -117,9 +121,7 @@ public class TestDesign {
 	* @param test the type of the test
 	*/
 	
-	public float getMedianAverage(int test) {
-		return medianSum[test]/tests[test];
-	}
+	public float getMedianAverage(int test) { return medianSum[test]/tests[test].getStack().size(); }
 	
 	/**
 	* Returns the fastest time for a single test element in a run
@@ -175,7 +177,27 @@ public class TestDesign {
 	* @param test the type of the test
 	*/
 	
-	public float getSampleAverage(int test) {
-		return sampleAverages[test]/tests[test];
+	public float getSampleAverage(int test) { return sampleAverages[test]/tests[test].getStack().size();	}
+
+
+	/**
+	 * * Return the median test time value
+	 *
+	 * @param test the type of the test
+	 */
+	public float getMedian(int test) {
+		TStack<TestAction> stack = tests[test].getStack();
+		int size = stack.size();
+		float[] totals = new float[size];
+		for (int i = 0; i < size; i++) {
+			totals[i] = stack.pop().getTotal();
+		}
+		Arrays.sort(totals);
+
+		if (size % 2 == 0) {
+			return (totals[size / 2] + totals[size / 2 + 1]) / 2;
+		} else {
+			return totals[size / 2 + 1];
+		}
 	}
 }
