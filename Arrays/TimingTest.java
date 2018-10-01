@@ -8,7 +8,7 @@ public class TimingTest {
 
 
     public static void main(String[] args) {
-        System.out.println("Begin Testing");
+        System.out.println("Begin Testing \n----------------------------------------------------");
         ArrayList arrayL = new ArrayList();
         ArrayList arrayLSet = new ArrayList(55000000);
         Vector vec = new Vector();
@@ -62,7 +62,7 @@ public class TimingTest {
                 arrayListSetTime= ((double)(finishRun - startRun)) / 1000;
                 arrayLSet=null;
                 System.out.println("Array List Construction Time:" + arrayListSetTime + " seconds (Set List)");
-                System.out.println("Array List Time to Sum: " + arrayListTimeSum+ " seconds");
+                System.out.println("Array List Time to Sum: " + arrayListTimeSum+ " seconds \n----------------------------------------------------");
 
             }
             else if (j == 2) {
@@ -96,7 +96,7 @@ public class TimingTest {
                 vectorSetTime= ((double)(finishRun-startRun))/1000;
                 vecSet=null;
                 System.out.println("Vector Construction Time:" + vectorSetTime + " seconds (Set Vector)");
-                System.out.println("Vector Time to Sum: " + vectorTimeSum+ " seconds");
+                System.out.println("Vector Time to Sum: " + vectorTimeSum+ " seconds \n----------------------------------------------------");
             }
             else {
                 startRun = System.currentTimeMillis();
@@ -115,7 +115,7 @@ public class TimingTest {
                 arrayTimeSum = (((double)(finishRun - startRun)) / 1000) - arrayTime;
                 arr=null;
                 System.out.println("Array Construction Time:" + arrayTime + " seconds");
-                System.out.println("Array Time to sum: " + arrayTimeSum+ " seconds");
+                System.out.println("Array Time to sum: " + arrayTimeSum+ " seconds \n----------------------------------------------------");
             }
 
         }
